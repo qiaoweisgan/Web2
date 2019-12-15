@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link href="222.css" rel="stylesheet" type="text/css">
+	<script src=annimate.js></script>
+</head>
+<body>
+	<div class="box" id="box">
+		<div class="slider" id="slider">
+	 <div class="slide"><img src="images/b5.png"></div>
+	 <div class="slide"><img src="images/b1.png"></div>
+	 <div class="slide"><img src="images/b2.png"></div>
+	 <div class="slide"><img src="images/b3.png"></div>
+	 <div class="slide"><img src="images/b4.png"></div>
+	 <div class="slide"><img src="images/b5.png"></div>
+	 <div class="slide"><img src="images/b1.png"></div>
+	</div>
+	<span id="left"></span>
+	<span id="right"></span>
+	<ul class="nav" id="nav">
+		<li class="active"></li>
+		<li class=""></li>
+		<li class=""></li>
+		<li class=""></li>
+		<li class=""></li>
+	</ul>
+	</div>
+	<script>
+		var box=document.getElementById("box");
+		var oNavlist=document.getElementById("nav").children;
+		var nav=document.getElementById(nav);
+		var slider=document.getElementById("slider");
+		var left=document.getElementById("left");
+		var right=document.getElementById("right");
+        var timer;
+        var index=1;
+        var isMoving=false;
+		function next(){
+			if(isMoving){
+				return;
+			}
+			isMoving=true;
+			index++;
+			navMove();
+			animate(slider,{left:-1200*i}function(){
+				if(i===6){
+					slider.style.left="-1200px";
+					index=1;
+				}
+				isMoving=false;
+			});
+		}
+		function prev(){
+			if(isMoving){
+				return;
+			}
+			isMoving=true;
+			index--;
+			navmove();
+			animate(slider,{left:1200*index},function(){
+				if(index==0){
+					slider.style.left="-6000px";
+					index=5;
+				}
+				isMoving=false;
+			})
+		}
+		var timer=setInterval(next,2000);
+		//鼠标划入清定时器
+		box.onmouseover=function(){
+			animate(left,{opacity:50});
+			animate(right,{opacity:50});
+			clearInterval(timer)
+		}
+		//HUACHU
+		box.onmouseout=function(){
+			animate(left,{opacity:0});
+			animate(right,{opacity:0});
+			timer=setInterval(next,2000);
+		} 
+		right.onclick=next;
+		left.onclick=prve;
+		for(var i=0;i<oNavlist.lenth;i++){
+			oNavlist[i].idx=i;
+			oNavlist[i].onclick=function(){
+				i=this.i+1;
+				navmove();
+				aniate(slider,{left:-1200*index});
+			}
+		}
+		function navmove(){
+			for(var i=0;i<oNavlist.length;i++){
+				oNavlist[i].className="";
+			}
+			if(index>5){
+				oNavlist[0].className="active";
+			}else if(index<=0){
+				oNavlist[4]className="active";
+			}else{
+				oNavlist[index-1].className="active";
+			}
+		}
+	</script>
+</body>
+</html>
